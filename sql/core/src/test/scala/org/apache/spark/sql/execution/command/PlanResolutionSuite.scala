@@ -412,6 +412,16 @@ class PlanResolutionSuite extends SharedSparkSession with AnalysisTest {
     }
   }
 
+  test("create table - invalid file format for STORED AS") {
+    val query = "CREATE TABLE my_tab(a INT, b STRING) STORED AS invalid_format"
+    checkError(
+      exception = intercept[AnalysisException] {
+        parseAndResolve(query)
+      },
+      condition = "STORED_AS_INVALID_FILE_FORMAT",
+      parameters = Map("fileFormat" -> "invalid_format"))
+  }
+
   test("create table - with comment") {
     val sql = "CREATE TABLE my_tab(a INT, b STRING) USING parquet COMMENT 'abc'"
 

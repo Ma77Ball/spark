@@ -1335,8 +1335,8 @@ private[sql] object QueryCompilationErrors extends QueryErrorsBase with Compilat
 
   def invalidFileFormatForStoredAsError(serdeInfo: SerdeInfo): Throwable = {
     new AnalysisException(
-      errorClass = "_LEGACY_ERROR_TEMP_1059",
-      messageParameters = Map("serdeInfo" -> serdeInfo.storedAs.get))
+      errorClass = "STORED_AS_INVALID_FILE_FORMAT",
+      messageParameters = Map("fileFormat" -> serdeInfo.storedAs.get))
   }
 
   def commandNotSupportNestedColumnError(command: String, quoted: String): Throwable = {
